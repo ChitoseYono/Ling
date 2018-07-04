@@ -103,20 +103,37 @@
             context.fillStyle = '#FFFFFF';
             context.fillText(text, wid / 2 + 20, 140);
 
-            document.getElementById("mybody").innerHTML = '<a download href="' + window.URL.createObjectURL(dataURLtoBlob(canvas.toDataURL("image/png"))) + '" target="_blank">文件下载</a>';
-           
+            downloadFile('.png', canvas.toDataURL("image/png"));
         }
 
     }
+    
+            function base64Img2Blob(code){
+                var parts = code.split(';base64,');
+                var contentType = parts[0].split(':')[1];
+                var raw = window.atob(parts[1]);
+                var rawLength = raw.length;
 
+                var uInt8Array = new Uint8Array(rawLength);
 
-    //**dataURL to blob**
-    function dataURLtoBlob(dataurl) {
-         var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-         bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-         while (n--) {
-             u8arr[n] = bstr.charCodeAt(n);
-         }
-         return new Blob([u8arr], { type: mime });
-    }
+                for (var i = 0; i < rawLength; ++i) {
+                  uInt8Array[i] = raw.charCodeAt(i);
+                }
+
+                return new Blob([uInt8Array], {type: contentType}); 
+            }
+    
+            function downloadFile(fileName, content){
+               
+                var aLink = document.createElement('a');
+                var blob = base64Img2Blob(content); //new Blob([content]);
+              
+                var evt = document.createEvent("HTMLEvents");
+                evt.initEvent("click", false, false);//initEvent 不加后两个参数在FF下会报错
+                aLink.download = fileName;
+                aLink.href = URL.createObjectURL(blob);
+         
+                aLink.dispatchEvent(evt);
+            }           
+
 </script>
