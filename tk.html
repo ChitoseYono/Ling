@@ -1,0 +1,111 @@
+<!doctype html>
+
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Logo from Ling tosite sigure</title>
+    <script>
+
+        window.onload = function () {
+
+            var canvas = document.getElementById("canvas");
+            var text = t.value;
+
+            canvas.setAttribute("width", 1000);
+            canvas.setAttribute("height", 190);
+
+            var img = new Image();
+            img.setAttribute('crossOrigin','Anonymous')
+            img.src = "./logo.png";
+
+            if (canvas.getContext("2d")) {
+                var context = canvas.getContext("2d");
+            } else {
+                alert("当前浏览器不支持Canvas，请更换尝试。");
+            }
+
+            img.onload = function () {
+                context.drawImage(img, 0, 0);
+            }
+        }
+
+    </script>
+    <style>
+        div {
+            font-size: 50px;
+            color: #fff;
+        }
+
+        button {
+            font-size: 50px;
+        }
+
+        input {
+            width: 100%;
+            font-size: 100px;
+        }
+    </style>
+</head>
+
+<body bgcolor="black">
+    <div style="width:100%;text-align:center" onsubmit="false">
+
+        <canvas id="canvas" style="border:1px solid #aaa;display:block;margin:50px auto;"> </canvas>
+        输入你的名字：
+        <input type="text" id="text">
+        <br>
+        <br>
+        <button type="button" id="btn">生成LOGO</button>
+    </div>
+
+
+</body>
+
+</html>
+
+<script type="text/javascript">
+    var btn = document.getElementById("btn");
+    var t = document.getElementById("text");
+
+    document.onkeydown = function (event) {
+        var e = event || window.event;
+        if (e && e.keyCode == 13) { //回车键的键值为13
+            btn.click(); //调用登录按钮的登录事件
+        }
+    };
+
+    btn.onclick = function () {
+
+        if (canvas.getContext("2d")) {
+            var context = canvas.getContext("2d");
+        } else {
+            alert("当前浏览器不支持Canvas，请更换尝试。");
+        }
+
+        var text = t.value;
+
+        var img = new Image();
+        img.setAttribute('crossOrigin','Anonymous')
+        img.src = "./logo.png";
+
+        img.onload = function () {
+
+            context.font = '150px 游明朝 Demibold';
+            var wid = context.measureText(text).width;
+
+            canvas.setAttribute("width", 1000 + wid);
+            canvas.setAttribute("height", 190);
+
+            context.drawImage(img, wid + 40, 0);
+            context.font = '150px 游明朝 Demibold';
+            context.textAlign = "center";
+            context.fillStyle = '#FFFFFF';
+            context.fillText(text, wid / 2 + 20, 140);
+            console.log(canvas.toDataURL("image/png", 1));
+            window.open(canvas.toDataURL("image/png", 1));
+            
+        }
+
+    }
+</script>
