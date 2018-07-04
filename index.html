@@ -99,49 +99,21 @@
 
             img.onload = function () {
 
-            context.font = '150px 游明朝 Demibold';
+            context.font = '150px SourceHanSerif-130ad50d8b1d688';
             var wid = context.measureText(text).width;
 
             canvas.setAttribute("width", 1000 + wid);
             canvas.setAttribute("height", 190);
 
             context.drawImage(img, wid + 40, 0);
-            context.font = '150px 游明朝 Demibold';
+            context.font = '150px SourceHanSerif-130ad50d8b1d688';
             context.textAlign = "center";
             context.fillStyle = '#FFFFFF';
             context.fillText(text, wid / 2 + 20, 140);
 
-            downloadFile('.png', canvas.toDataURL("image/png"));
         }
 
     }
-    
-            function base64Img2Blob(code){
-                var parts = code.split(';base64,');
-                var contentType = parts[0].split(':')[1];
-                var raw = window.atob(parts[1]);
-                var rawLength = raw.length;
-
-                var uInt8Array = new Uint8Array(rawLength);
-
-                for (var i = 0; i < rawLength; ++i) {
-                  uInt8Array[i] = raw.charCodeAt(i);
-                }
-
-                return new Blob([uInt8Array], {type: contentType}); 
-            }
-    
-            function downloadFile(fileName, content){
-               
-                var aLink = document.createElement('a');
-                var blob = base64Img2Blob(content); //new Blob([content]);
-              
-                var evt = document.createEvent("HTMLEvents");
-                evt.initEvent("click", false, false);//initEvent 不加后两个参数在FF下会报错
-                aLink.download = fileName;
-                aLink.href = URL.createObjectURL(blob);
-         
-                aLink.dispatchEvent(evt);
-            }           
+        
 
 </script>
