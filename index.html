@@ -33,7 +33,7 @@
     </script>
     <style>
         @font-face {
-            font-family: '游明朝';
+            font-family: 'MyFont';
             src: url('yumindb.ttf');
         }
         
@@ -96,14 +96,14 @@
 
             img.onload = function () {
 
-            context.font = '150px 游明朝 Demibold';
+            context.font = '150px MyFont';
             var wid = context.measureText(text).width;
 
             canvas.setAttribute("width", 1000 + wid);
             canvas.setAttribute("height", 190);
 
             context.drawImage(img, wid + 40, 0);
-            context.font = '150px 游明朝 Demibold';
+            context.font = '150px MyFont';
             context.textAlign = "center";
             context.fillStyle = '#FFFFFF';
             context.fillText(text, wid / 2 + 20, 140);
